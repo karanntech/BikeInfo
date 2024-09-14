@@ -14,5 +14,5 @@ const bikeSchema = new mongoose.Schema({
         required: true
     }
 },{timestamps: true})
-
-module.exports = mongoose.model("BikeInfo", bikeSchema)
+const bikeinfo = mongoose.model("BikeInfo", bikeSchema);
+export default bikeinfo
