@@ -4,21 +4,34 @@ import {ApiResponse} from "../utils/apiresponse.js";
 import asyncHandler from "../utils/asyncHandler.js";
 
 const getBikeInfo = asyncHandler(async(req, res)=>{
-    const {brand, bikeName} = req.params
+    const bikeData = await BikeInfo.find({})
+    return res
+    .status(200)
+    .json(new ApiResponse(200, bikeData, "Bike data fetch successfully"))
+})
 
-    if(!brand || !bikeName){
-        throw new ApiError(404, "BikeInfo not found")
+const getBikeByCategory = asyncHandler(async(req, res)=>{
+
+    const {category} = req.params;
+
+    if(!category){
+        throw new ApiError(400, "Invalid Category")
     }
 
-    const getBike = await BikeInfo.findOne({brand, bikeName})
+    const bikes = await BikeInfo.find({category})
 
-    if(!getBike){
-        throw new ApiError(404, "BikeId not found")
+    if(bikes.length === 0){
+        return res
+        .status(404)
+        .json(new ApiResponse(404, "No bikes found in this category"))
     }
 
     return res
     .status(200)
-    .json(new ApiResponse(200, getBike, "Bike data fetch successfully"))
+    .json(new ApiResponse(200, bikes, `Bikes in ${category} retrieve successfully`))
 })
 
-export {getBikeInfo}
+export {
+    getBikeInfo,
+    getBikeByCategory
+}

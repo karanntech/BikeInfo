@@ -1,8 +1,10 @@
 import express from "express";
-import {getBikeInfo} from "../controllers/user.controller.js";
+import {getBikeByCategory, getBikeInfo} from "../controllers/user.controller.js";
 
 const router = express.Router();
 
-router.get("/:brand/:bikeName", getBikeInfo)
+router.get("/getall", getBikeInfo);
+
+router.get("/bikes/:category", getBikeByCategory);
 
 export default router;
