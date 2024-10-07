@@ -11,8 +11,8 @@ const bikeSchema = new mongoose.Schema({
     },
     category: {
         type: String,
-        required: true
+        enum: ['Sport', 'Scooter', 'Street']
     }
 },{timestamps: true})
-const bikeinfo = mongoose.model("BikeInfo", bikeSchema);
-export default bikeinfo
+const Bikeinfo = mongoose.model("BikeInfo", bikeSchema);
+export default Bikeinfo;
